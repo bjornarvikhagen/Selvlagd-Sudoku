@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8" content="width=device-width, initial-scale=1" name="viewport">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+	</script>
+	<link href="https://fonts.googleapis.com/css?family=Caveat" rel="stylesheet">
+	<link href='style/stil.css' rel='stylesheet'>
+	<title>Sudoku team 10</title>
+	<script>
+	// Denne jquery-koden fungerer som en toggle for bakgrunnsmusikk. Vi har lagt inn ikoner som indikerer om lyden er
+	// av eler på, samt lagt inn funkjsonalitet som muter lyden ved trykk
+	// Vi har valgt å beholde bakgrunnsmusikken i html-koden for å holde bedre oversikt.
+	                        $(function() {
+	                                $("#lyd").click(function(e) {
+	                                        e.preventDefault();
+
+	                                        var song = $('audio')[0]
+	                                        if (song.paused){
+	                                                song.play();
+	                                                document.getElementById("lyd").src = "media/lyd_paa.png";
+	                                        }else{
+	                                                song.pause();
+	                                                document.getElementById("lyd").src = "media/lyd_av.png";
+	                                        }
+	                                        });
+	                        });
+	</script>
+</head>
+<body>
+
+<!-- Høyttaler-ikon som vises når siden lastes. Lydfiler. Bakgrunnsmusikk samt lyd som kommer når du vinner spillet -->
+ 					<img height="50px" id="lyd" src="media/lyd_paa.png" width="50px">
+					<audio autoplay="" id="bgAudio" loop="" preload="" src="media/musikk.mp3">Din nettleser støtter ikke bakgrunnsmusikk.</audio>
+					<audio id="seiersLyd" src="media/seierlyd.mp3">Din nettleser støtter ikke bakgrunnsmusikk.</audio>
+
+	<center>
+
+		<h1>Sudoku</h1>
+<!-- Timer -->
+		<h2><time>00:00:00</time></h2>
+<!-- Ikoner for å starte, stoppe og resette timeren-->
+		<img height="20" id="start" src="media/start.png">
+		<img height="20" id="stop" src="media/pause.png">
+		<img height="20" id="clear" src="media/reset.png">
+
+<!-- Laget en div-id for seiersteksten så den kan hentes som element i javascript-->
+			<div id="seiersTekst"></div>
+<!-- Laget en div-id for seiersbildet så det kan hentes som element i javascript-->
+			<div id="seiersBilde">
+			<img src="media/confetti1.gif">
+		</div>
+
+		<a href="index.html"><button class="dropbtn">Forside</button></a>
+<!-- Div-klasse for dropdown (dropdown som vises når du holder over vanskelighets-grad knappen,
+som gjør at du kan velge vanskelighetsgrad)-->
+			<div class="dropdown">
+				<button class="dropbtn">Vanskelighetsgrad</button>
+
+				<div class="dropdown-content">
+					<!-- Knapper som kjører funksjoner for vanskelighetsgrad samt
+				resetter stoppeklokken-->
+					<button class="dropd" id="trykk1" onclick="lett()">Lett</button><br>
+					<button class="dropd" id="trykk2" onclick="middels()">Middels</button><br>
+					<button class="dropd" id="trykk3" onclick="vanskelig()">Vanskelig</button><br>
+				</div><br></div>
+				<!-- Knapp for å laste inn siden på nytt -->
+				<button class="dropbtn" onclick="window.location.reload()">Start nytt spill</button> <button class="dropbtn" onclick="hint()">Tips</button><br>
+
+				<br>
+				<!-- Dette er sudoku-brettet vårt. Input type number der det minste du kan skrive er 1
+			og det største du kan skrive er 9. Pattern og maxlength gjør at vi kan
+		endre på tallet ved å bruke museknappen ved hjelp av pil opp og ned-ikoner på ruten
+	vi holder over, samt å kun kunne gå opp eller ned 1 tall om gangen-->
+			<table id='sudoku'>
+				<tr>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+				</tr>
+				<tr>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+				</tr>
+				<tr>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+				</tr>
+				<tr>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+				</tr>
+				<tr>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+				</tr>
+				<tr>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+				</tr>
+				<tr>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+				</tr>
+				<tr>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+				</tr>
+				<tr>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+<td><input max="9" maxlength="1" min="1" pattern="\d*" type="number"></td>
+				</tr>
+			</table>
+		</div>
+		<!-- Knapp for å validere. Du kan også validere spillet ved å trykke enter eller hvor som helst på skjermen,
+	men vi følte at å ha en knapp der det står "Sjekk svar" ville føre til mindre forvirrelse og eventuelt en
+bedre opplevelse for brukeren.  -->
+		<button class="valider">Sjekk svar</button>
+	</center><br>
+	<br>
+	<br>
+	<br>
+	<!-- henter sudoku.js som script-fil.-->
+	<script src='sudoku.js' type='text/javascript'>
+	</script>
+</body>
+</html>

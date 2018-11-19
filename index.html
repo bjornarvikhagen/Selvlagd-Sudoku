@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sudoku</title>
+	<meta charset="utf-8" content="width=device-width, initial-scale=1" name="viewport">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+	</script>
+	<link href="https://fonts.googleapis.com/css?family=Caveat" rel="stylesheet">
+	<link href='style/stil.css' rel='stylesheet'>
+</head>
+<body>
+	<center>
+		<h1>Sudoku</h1><br>
+		<a href="spill.html"><button class="dropbtn">Start spill</button></a>
+		<div class="spillregler">
+			<button class="dropbtn">Spillregler</button>
+			<div class="spillregler-content">
+				<p>Spillets regler: Hvert brett inneholder tomme ruter hvor du skal plassere ett tall mellom 1 og 9. Hvert tall skal kun forekomme én gang i hver kolonne, rad og delkvadrat.<br>
+				Fyll ut brettet slik at alle rutene inneholder ett tall. Når du har fullført brettet kan du prøve deg på på et nytt brett på samme nivå, eller forsøke på et høyere nivå.<br>
+				<br>
+
+        <a href="https://www.youtube.com/watch?v=OtKxtvMUahA" target="_blank">Link til hvordan spille på youtube</a></p>
+			</div>
+		</div><br>
+		<br>
+		<img class="fast" height="300px" src="media/sudoku.gif" width="300px">
+	</center><img id="lyd" height="50px" src="media/lyd_paa.png" width="50px"> <audio autoplay="" id="bgAudio" loop="" preload="" src="media/musikk.mp3">Din nettleser støtter ikke bakgrunnsmusikk.</audio>
+	<script>
+
+	             $(function() {
+	                 $("#lyd").click(function(e) {
+	                     e.preventDefault();
+
+	                     var song = $('audio')[0]
+	                     if (song.paused){
+	                         song.play();
+	                         document.getElementById("lyd").src = "media/lyd_paa.png";
+	                     }else{
+	                         song.pause();
+	                         document.getElementById("lyd").src = "media/lyd_av.png";
+	                     }
+	                     });
+	             });
+	</script>
+</body>
+</html>

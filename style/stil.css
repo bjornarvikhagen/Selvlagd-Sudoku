@@ -1,0 +1,121 @@
+/*Plasserer knappen som toggler lyd*/
+#lyd {
+	position: fixed;
+	top: 50px;
+}
+#start, #stop, #clear { /*Gjør at du får en annen musepeker når du holder over knappene som kontrollerer timeren */
+	cursor: pointer;
+}
+.valider { /* Endrer på egenskapene til sjekk svar-knappen*/
+	background-color: #5BC1E7;
+	color: white;
+	padding: 5px;
+	font-size: 22px;
+	border: none;
+	cursor: pointer;
+	min-width: 20px;
+}
+h1 { /* Endrer på egenskapene til sudoku-headeren vår*/
+	font-size: 80px;
+	font-family: 'Caveat', 'cursive', 'Arial', 'Helvetica', sans-serif;
+	margin-top: auto;
+	margin-bottom: -20px;
+}
+body { /* Endrer på egenskapene til alt i <body>. Bakgrunnsbilde, generell font. */
+	background-image: url("../media/childrens_day_3-wallpaper-1920x1200.jpg");
+	font-family: 'Caveat', 'cursive', 'Arial', 'Helvetica', sans-serif;
+	font-size: 20px;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+#seiersTekst { /* Det kommer en liten "Du vant!"-varsel når du vinner. Dette endrer på størrelsen på den teksten*/
+	font-size: 30px;
+}
+#seiersBilde { /* Endrer på hvor confetti-gifen popper opp på skjermen når du vinner*/
+	position: fixed;
+	display: none;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 0;
+	cursor: pointer;
+	pointer-events: none;
+}
+#seiersBilde img { /* Gjør at bildet vises på hele skjermen*/
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+}
+input { /* Vi har bygd brettet på en haug med <input>'s og dette endrer på hvordan brettet vårt ser ut'*/
+	width: 7vh;
+	height: 7vh;
+	min-width: 45px;
+	min-height: 45px;
+	text-align: center;
+	font-size: 2em;
+}
+tbody>tr>td:nth-child(4), tbody>tr>td:nth-child(7) { /* Gir en svart kant på spillet på siden*/
+	border-left: solid 5px black;
+}
+tbody>tr:nth-child(3)>td, tbody>tr:nth-child(6)>td { /* Gir en svart kant på spillet på bunnen*/
+	border-bottom: solid 5px black;
+}
+/*knapper*/
+
+.dropbtn { /* Endrer på egenskapene på knappene på forsiden og knappene over sudoku-brettet på spillet*/
+	background-color: #5BC1E7;
+	color: white;
+	padding: 16px;
+	font-size: 22px;
+	border: none;
+	cursor: pointer;
+	min-width: 150px;
+}
+.dropdown { /* Posisjonerer dropdown-knappen (vanskelighetsgrad) */
+	position: relative;
+	display: inline-block;
+}
+.dropdown-content { /* Bestemmer hvordan innholdet som vises når du hovrer over vanskelighetsgrad-knappen skal se ut*/
+	display: none;
+	position: absolute;
+	background-color: white;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.spillregler { /* Dette er div-en for innholdet som kommer når du holder over spillregler-knappen*/
+	position: relative;
+	display: inline-block;
+}
+.spillregler-content { /* Plasserer og endrer på innholdsegenskapene under spillregler-knappen */
+	display: none;
+	position: absolute;
+	float: left;
+	font-family: Helvetica;
+	font-size: 15px;
+	background-color: #f9f9f9;
+	min-width: 200px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	padding: 12px 16px;
+	z-index: 1;
+}
+.spillregler:hover .spillregler-content { /* Gjør at innholdet i spillregler-content vises når du holder over knappen*/
+	display: block;
+}
+
+.dropdown:hover .dropdown-content { /* Gjør at innholdet i dropdown-content vises når du holder over knappen*/
+	display: block;
+}
+.dropd { /* Endrer på boksene med enkelt, middels og vanskelig. */
+	background-color: lightblue;
+	color: white;
+	padding: 16px;
+	font-size: 18px;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	z-index: 1;
+}
